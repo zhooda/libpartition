@@ -9,7 +9,8 @@ on windows with mingw but I'm not sure about that yet.
 ### Compiling
 ```bash
 git clone https://github.com/zhooda/libpartition
-cd libpartition && make
+cd libpartition && mkdir build
+make
 ```
 
 ### Using the library
