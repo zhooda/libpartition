@@ -1,6 +1,4 @@
 #include "partition.h"
-#include <stdint.h>
-#include <string.h>
 
 // 1MB integer heap partition
 uint8_t __int_heap[1024 * 1024];
