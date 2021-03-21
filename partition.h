@@ -9,7 +9,7 @@
 #include <pthread.h>
 #include <stddef.h>
 
-#define PARTITION_MAX 1024*1024
+#define PARTITION_MAX (1024 * 1024)
 
 // Partition memory allocation based on types
 #define palloc(SIZE, TYPE) __palloc(SIZE, #TYPE)
