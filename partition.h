@@ -9,15 +9,16 @@
 #include <pthread.h>
 #include <stddef.h>
 
-#define INT 0
-#define CHAR 1
-#define FLOAT 2
+#define PARTITION_MAX 1024*1024
 
 // Partition memory allocation based on types
-#define palloc(SIZE, TYPE) __palloc(SIZE, #TYPE);
+#define palloc(SIZE, TYPE) __palloc(SIZE, #TYPE)
 
 // Free memory based on types
-#define pfree(PTR, TYPE) __pfree(PTR, #TYPE);
+#define pfree(PTR, TYPE) __pfree(PTR, #TYPE)
+
+// Displays memory in partition
+#define printpart(TYPE, MAX) __printpart(#TYPE, MAX)
 
 // Internal function to allocate memory in the integer heap
 void *__int_malloc(size_t sz);
@@ -34,7 +35,10 @@ void *__generic_malloc(size_t sz);
 // Internal function to allocate memory in type separated heaps
 void *__palloc(size_t sz, const char *type);
 
-// Internal function to clear memory in a heap;
+// Internal function to clear memory in a heap
 void __pfree(void *mem, const char *type);
+
+// Internal function to print partition contents
+void __printpart(const char *type, int max);
 
 #endif

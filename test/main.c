@@ -1,5 +1,6 @@
 #include "../partition.h"
 #include <stdint.h>
+#include <string.h>
 
 typedef struct test_struct {
     int value;
@@ -26,7 +27,13 @@ int main(int argc, char **argv) {
     palloc(sizeof(uint32_t), char);
     palloc(sizeof(uint32_t), float);
 
+    char *str = palloc(sizeof(char)*3, char*);
+    strncpy(str, "hi", 3);
+
     for (int i = 0; i < 10; i++) {
-        printf("%d %s", p[i], (i==9) ? "" : "-> ");
+        printf("%d %s", p[i], (i==9) ? "\n" : "-> ");
     }
+
+    printpart(uint8_t, 10);
+    printpart(char*, PARTITION_MAX);
 }

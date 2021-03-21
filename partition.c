@@ -1,4 +1,6 @@
 #include "partition.h"
+#include <stdint.h>
+#include <string.h>
 
 // 1MB integer heap partition
 uint8_t __int_heap[1024 * 1024];
@@ -97,4 +99,33 @@ void *__palloc(size_t sz, const char *type) {
 void __pfree(void *mem, const char *type) {
     // doesn't do anything currently
     // you will have memory leaks
+}
+
+void __printpart(const char *type, int max) {
+    uint8_t *part = NULL;
+    uint8_t iter = 0;
+    char fmt[256];
+
+    if (strstr(type, "char")) {
+        part = __char_heap;
+        iter = sizeof(char);
+        strcpy(fmt, "%p: %c\n");
+    } else if (strstr(type, "int") || strstr(type, "long") || strstr(type, "short")) {
+        part = __int_heap;
+        iter = sizeof(int);
+        strcpy(fmt, "%p: %02x\n");
+    } else if (strstr(type, "float") || strstr(type, "double")) {
+        part = __float_heap;
+        iter = sizeof(float);
+        strcpy(fmt, "%p: %.4f\n");
+    } else {
+        part = __generic_heap;
+        iter = 1;
+        strcpy(fmt, "%p: %02x\n");
+    }
+    
+    // printf("%lu\n", sizeof(part)/1024);
+    for (int i = 0; i < max*iter; i += iter) {
+        printf(fmt, &part[i], part[i]);
+    }
 }
